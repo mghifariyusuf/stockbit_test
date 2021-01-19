@@ -1,4 +1,4 @@
-package entitiy
+package entity
 
 // Movie ...
 type Movie struct {

@@ -1,0 +1,5 @@
+# Vendor folder, get from `go mod vendor`
+vendor
+
+# MacOS file
+.DS_Store
