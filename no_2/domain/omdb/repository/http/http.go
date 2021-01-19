@@ -78,6 +78,7 @@ func New(cfg *Config) *HTTP {
 
 // Search ...
 func (h *HTTP) Search(ctx context.Context, searchWord string, page int) (e []entity.Movie, err error) {
+	// create new request
 	url := fmt.Sprintf("%s/?apikey=%s&s=%s&page=%d", h.cfg.BaseURL, h.cfg.Key, searchWord, page)
 	request, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
@@ -85,6 +86,7 @@ func (h *HTTP) Search(ctx context.Context, searchWord string, page int) (e []ent
 		return nil, err
 	}
 
+	// do the request
 	response, err := h.http.Do(request)
 	if err != nil {
 		log.Println(err)
@@ -92,24 +94,28 @@ func (h *HTTP) Search(ctx context.Context, searchWord string, page int) (e []ent
 	}
 	defer response.Body.Close()
 
+	// read response body
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
 
+	// unmarshal to struct
 	err = json.Unmarshal(body, &result)
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
 
+	// if status not 200 or return response false
 	if response.StatusCode != 200 || result.Response == "False" {
 		log.Println(result.Error)
 		io.Copy(ioutil.Discard, response.Body)
 		return nil, errors.New(result.Error)
 	}
 
+	// collecting imdb id
 	for _, v := range result.Search {
 		e = append(e, entity.Movie{
 			ImdbID: v.ImdbID,
@@ -121,6 +127,7 @@ func (h *HTTP) Search(ctx context.Context, searchWord string, page int) (e []ent
 
 // GetDetail ...
 func (h *HTTP) GetDetail(ctx context.Context, id string) (e entity.Movie, err error) {
+	// new request
 	url := fmt.Sprintf("%s/?apikey=%s&i=%s", h.cfg.BaseURL, h.cfg.Key, id)
 	request, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
@@ -128,6 +135,7 @@ func (h *HTTP) GetDetail(ctx context.Context, id string) (e entity.Movie, err er
 		return
 	}
 
+	// do request
 	response, err := h.http.Do(request)
 	if err != nil {
 		log.Println(err)
@@ -135,12 +143,14 @@ func (h *HTTP) GetDetail(ctx context.Context, id string) (e entity.Movie, err er
 	}
 	defer response.Body.Close()
 
+	// read body
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		log.Println(err)
 		return
 	}
 
+	// unmarshal to struct
 	var mv movie
 	err = json.Unmarshal(body, &mv)
 	if err != nil {
@@ -148,12 +158,14 @@ func (h *HTTP) GetDetail(ctx context.Context, id string) (e entity.Movie, err er
 		return
 	}
 
+	// if status not 200 or return response false
 	if response.StatusCode != 200 || result.Response == "False" {
 		log.Println(result.Error)
 		io.Copy(ioutil.Discard, response.Body)
 		return
 	}
 
+	// convert result to entity
 	ratings := make([]entity.Rating, 0, len(mv.Ratings))
 	for _, v := range mv.Ratings {
 		rating := entity.Rating{

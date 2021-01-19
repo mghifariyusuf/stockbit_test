@@ -14,6 +14,7 @@ type GetDetailRequest struct {
 
 // GetDetail ...
 func (s *service) GetDetail(ctx context.Context, r *GetDetailRequest) (e entity.Movie, err error) {
+	// call repo
 	e, err = s.omdbRepo.GetDetail(ctx, r.ID)
 	if err != nil {
 		log.Println(err)

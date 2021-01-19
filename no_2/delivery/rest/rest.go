@@ -31,6 +31,7 @@ func (rest *Rest) Register(router *httprouter.Router) {
 	router.GET("/detail/:id", rest.getDetail)
 }
 
+// handler to return json response
 func responseHandler(w http.ResponseWriter, object interface{}) {
 	status := http.StatusOK
 
@@ -45,6 +46,7 @@ func responseHandler(w http.ResponseWriter, object interface{}) {
 	w.Write([]byte(jsonResp))
 }
 
+// handler to return error
 func errorHandler(w http.ResponseWriter, err error) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusInternalServerError)

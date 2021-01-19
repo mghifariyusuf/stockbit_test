@@ -11,9 +11,11 @@ import (
 )
 
 func (rest *Rest) search(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	// define context
 	ctx, cancel := context.WithTimeout(r.Context(), ctxTimeout)
 	defer cancel()
 
+	// variables
 	var (
 		params     = r.URL.Query()
 		err        error
@@ -21,10 +23,12 @@ func (rest *Rest) search(w http.ResponseWriter, r *http.Request, ps httprouter.P
 		page       = 1
 	)
 
+	// query param search
 	if params.Get("searchword") != "" {
 		searchWord = params.Get("searchword")
 	}
 
+	// query param page
 	if params.Get("pagination") != "" {
 		page, err = strconv.Atoi(params.Get("pagination"))
 		if err != nil {
@@ -34,6 +38,7 @@ func (rest *Rest) search(w http.ResponseWriter, r *http.Request, ps httprouter.P
 		}
 	}
 
+	// service search
 	e, err := rest.service.Search(ctx, &service.SearchRequest{
 		SearchWord: searchWord,
 		Page:       page,

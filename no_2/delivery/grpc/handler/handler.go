@@ -22,6 +22,7 @@ func New(service service.Service) *Handler {
 
 // Search ...
 func (h *Handler) Search(ctx context.Context, r *schema.SearchRequest) (*schema.SearchResponse, error) {
+	// call service for search
 	e, err := h.service.Search(ctx, &service.SearchRequest{
 		SearchWord: r.SearchWord,
 		Page:       int(r.Pagination),
@@ -31,6 +32,7 @@ func (h *Handler) Search(ctx context.Context, r *schema.SearchRequest) (*schema.
 		return nil, err
 	}
 
+	// convert from entity to grpc schema
 	mv := make([]*schema.Movie, 0, len(e))
 	for _, v := range e {
 		ratings := make([]*schema.Rating, 0, len(v.Ratings))
