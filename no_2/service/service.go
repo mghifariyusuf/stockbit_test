@@ -12,7 +12,7 @@ type Service interface {
 	Search(ctx context.Context, r *SearchRequest) (e []entity.Movie, err error)
 }
 
-type svc struct {
+type service struct {
 	omdbRepo omdb.Repository
 }
 
@@ -20,7 +20,7 @@ type svc struct {
 func New(
 	omdbRepo omdb.Repository,
 ) Service {
-	return &svc{
+	return &service{
 		omdbRepo: omdbRepo,
 	}
 }

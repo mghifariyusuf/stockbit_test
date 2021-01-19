@@ -15,7 +15,7 @@ type SearchRequest struct {
 }
 
 // Search ...
-func (s *svc) Search(ctx context.Context, r *SearchRequest) (e []entity.Movie, err error) {
+func (s *service) Search(ctx context.Context, r *SearchRequest) (e []entity.Movie, err error) {
 	results, err := s.omdbRepo.Search(ctx, r.SearchWord, r.Page)
 	if err != nil {
 		log.Println(err)
