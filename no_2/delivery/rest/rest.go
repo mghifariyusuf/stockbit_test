@@ -28,6 +28,7 @@ func New(
 // Register ...
 func (rest *Rest) Register(router *httprouter.Router) {
 	router.GET("/search", rest.search)
+	router.GET("/detail/:id", rest.getDetail)
 }
 
 func responseHandler(w http.ResponseWriter, object interface{}) {
