@@ -1,0 +1,72 @@
+[
+    {
+        "Title": "Batman: The Killing Joke",
+        "Year": "2016",
+        "Rated": "R",
+        "Released": "25 Jul 2016",
+        "Runtime": "76 min",
+        "Genre": "Animation, Action, Crime, Drama, Thriller",
+        "Director": "Sam Liu",
+        "Writer": "Brian Azzarello, Brian Bolland (based on the graphic novel illustrated by), Bob Kane (Batman created by), Bill Finger (Batman created by)",
+        "Actors": "Kevin Conroy, Mark Hamill, Tara Strong, Ray Wise",
+        "Plot": "As Batman hunts for the escaped Joker, the Clown Prince of Crime attacks the Gordon family to prove a diabolical point mirroring his own fall into madness.",
+        "Language": "English",
+        "Country": "USA",
+        "Awards": "1 win & 2 nominations.",
+        "Poster": "https://m.media-amazon.com/images/M/MV5BMTdjZTliODYtNWExMi00NjQ1LWIzN2MtN2Q5NTg5NTk3NzliL2ltYWdlXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_SX300.jpg",
+        "Ratings": [
+            {
+                "Source": "Internet Movie Database",
+                "Value": "6.4/10"
+            },
+            {
+                "Source": "Rotten Tomatoes",
+                "Value": "40%"
+            }
+        ],
+        "Metascore": "N/A",
+        "ImdbRating": "6.4",
+        "ImdbVotes": "49,473",
+        "ImdbID": "tt4853102",
+        "Type": "movie",
+        "DVD": "N/A",
+        "BoxOffice": "$3,775,000",
+        "Production": "Warner Bros.",
+        "Website": "N/A"
+    },
+    {
+        "Title": "Batman: The Dark Knight Returns, Part 2",
+        "Year": "2013",
+        "Rated": "PG-13",
+        "Released": "29 Jan 2013",
+        "Runtime": "76 min",
+        "Genre": "Animation, Action, Crime, Drama, Horror, Sci-Fi, Thriller",
+        "Director": "Jay Oliva",
+        "Writer": "Bob Kane (character created by: Batman), Jerry Siegel (character created by: Superman), Joe Shuster (character created by: Superman), Frank Miller (comic book), Klaus Janson (comic book), Bob Goodman",
+        "Actors": "Peter Weller, Ariel Winter, Michael Emerson, David Selby",
+        "Plot": "The Batman has returned after a 10-year absence. The Gotham authorities want to arrest him. An old foe wants a reunion. The Feds want the Man of Tomorrow to put a stop to him.",
+        "Language": "English",
+        "Country": "USA",
+        "Awards": "1 win & 1 nomination.",
+        "Poster": "https://m.media-amazon.com/images/M/MV5BYTEzMmE0ZDYtYWNmYi00ZWM4LWJjOTUtYTE0ZmQyYWM3ZjA0XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SX300.jpg",
+        "Ratings": [
+            {
+                "Source": "Internet Movie Database",
+                "Value": "8.4/10"
+            },
+            {
+                "Source": "Rotten Tomatoes",
+                "Value": "94%"
+            }
+        ],
+        "Metascore": "N/A",
+        "ImdbRating": "8.4",
+        "ImdbVotes": "45,515",
+        "ImdbID": "tt2166834",
+        "Type": "movie",
+        "DVD": "N/A",
+        "BoxOffice": "N/A",
+        "Production": "Warner Premiere, Warner Bros. Animation, DC Entertainment",
+        "Website": "N/A"
+    }
+]

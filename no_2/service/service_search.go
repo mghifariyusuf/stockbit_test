@@ -17,7 +17,7 @@ type SearchRequest struct {
 // Search ...
 func (s *service) Search(ctx context.Context, r *SearchRequest) (e []entity.Movie, err error) {
 	// call repo search
-	results, err := s.omdbRepo.Search(ctx, r.SearchWord, r.Page)
+	results, err := s.movieRepo.Search(ctx, r.SearchWord, r.Page)
 	if err != nil {
 		log.Println(err)
 		return nil, err
@@ -30,7 +30,7 @@ func (s *service) Search(ctx context.Context, r *SearchRequest) (e []entity.Movi
 		wg.Add(1)
 		go func(i int, v entity.Movie) {
 			defer wg.Done()
-			detail, err := s.omdbRepo.GetDetail(ctx, v.ImdbID)
+			detail, err := s.movieRepo.GetDetail(ctx, v.ImdbID)
 			if err != nil {
 				log.Println(err)
 				return
