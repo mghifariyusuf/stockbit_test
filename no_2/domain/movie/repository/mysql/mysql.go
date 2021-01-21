@@ -50,7 +50,11 @@ func New(db *sqlx.DB) *MySQL {
 }
 
 // Upsert function to insert to db and update when imdb_id already
-func (m *MySQL) Upsert(ctx context.Context, e entity.Movie) (err error) {
+func (m *MySQL) Upsert(ctx context.Context, e *entity.Movie) (err error) {
+	if e == nil {
+		return
+	}
+
 	ratings, err := json.Marshal(e.Ratings)
 	if err != nil {
 		log.Println(err)

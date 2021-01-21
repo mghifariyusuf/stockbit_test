@@ -10,8 +10,8 @@ import (
 
 // Service ...
 type Service interface {
-	Search(ctx context.Context, r *SearchRequest) (e []entity.Movie, err error)
-	GetDetail(ctx context.Context, r *GetDetailRequest) (e entity.Movie, err error)
+	Search(ctx context.Context, r *SearchRequest) (e []*entity.Movie, err error)
+	GetDetail(ctx context.Context, r *GetDetailRequest) (e *entity.Movie, err error)
 }
 
 type service struct {

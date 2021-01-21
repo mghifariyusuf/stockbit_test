@@ -27,8 +27,8 @@ func New(
 
 // Register ...
 func (rest *Rest) Register(router *httprouter.Router) {
-	router.GET("/search", rest.search)
-	router.GET("/detail/:id", rest.getDetail)
+	router.GET("/", rest.search)
+	router.GET("/:id", rest.getDetail)
 }
 
 // handler to return json response
@@ -37,7 +37,7 @@ func responseHandler(w http.ResponseWriter, object interface{}) {
 
 	jsonResp, err := json.Marshal(object)
 	if err != nil {
-		errorHandler(w, err)
+		errorHandler(w, err, http.StatusInternalServerError)
 		return
 	}
 
@@ -47,17 +47,17 @@ func responseHandler(w http.ResponseWriter, object interface{}) {
 }
 
 // handler to return error
-func errorHandler(w http.ResponseWriter, err error) {
+func errorHandler(w http.ResponseWriter, err error, status int) {
 	m := map[string]string{
 		"error": err.Error(),
 	}
 	jsonResp, err := json.Marshal(m)
 	if err != nil {
-		errorHandler(w, err)
+		errorHandler(w, err, http.StatusInternalServerError)
 		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusInternalServerError)
+	w.WriteHeader(status)
 	w.Write([]byte(jsonResp))
 }

@@ -20,7 +20,7 @@ func (rest *Rest) getDetail(w http.ResponseWriter, r *http.Request, ps httproute
 	})
 	if err != nil {
 		log.Println(err)
-		errorHandler(w, err)
+		errorHandler(w, err, http.StatusInternalServerError)
 		return
 	}
 

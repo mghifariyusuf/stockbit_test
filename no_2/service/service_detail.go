@@ -13,7 +13,7 @@ type GetDetailRequest struct {
 }
 
 // GetDetail ...
-func (s *service) GetDetail(ctx context.Context, r *GetDetailRequest) (e entity.Movie, err error) {
+func (s *service) GetDetail(ctx context.Context, r *GetDetailRequest) (e *entity.Movie, err error) {
 	// get data from omdb
 	e, err = s.omdbRepo.GetDetail(ctx, r.ID)
 	if err != nil {

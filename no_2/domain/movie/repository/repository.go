@@ -8,5 +8,5 @@ import (
 
 // Repository ...
 type Repository interface {
-	Upsert(ctx context.Context, e entity.Movie) (err error)
+	Upsert(ctx context.Context, e *entity.Movie) (err error)
 }

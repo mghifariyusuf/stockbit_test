@@ -64,6 +64,7 @@ var result struct {
 	TotalResults string  `json:"totalResults"`
 	Response     string  `json:"Response"`
 	Error        string  `json:"Error"`
+	movie
 }
 
 // New ...
@@ -126,7 +127,7 @@ func (h *HTTP) Search(ctx context.Context, searchWord string, page int) (e []ent
 }
 
 // GetDetail ...
-func (h *HTTP) GetDetail(ctx context.Context, id string) (e entity.Movie, err error) {
+func (h *HTTP) GetDetail(ctx context.Context, id string) (e *entity.Movie, err error) {
 	// new request
 	url := fmt.Sprintf("%s/?apikey=%s&i=%s", h.cfg.BaseURL, h.cfg.Key, id)
 	request, err := http.NewRequestWithContext(ctx, "GET", url, nil)
@@ -151,8 +152,7 @@ func (h *HTTP) GetDetail(ctx context.Context, id string) (e entity.Movie, err er
 	}
 
 	// unmarshal to struct
-	var mv movie
-	err = json.Unmarshal(body, &mv)
+	err = json.Unmarshal(body, &result)
 	if err != nil {
 		log.Println(err)
 		return
@@ -162,12 +162,12 @@ func (h *HTTP) GetDetail(ctx context.Context, id string) (e entity.Movie, err er
 	if response.StatusCode != 200 || result.Response == "False" {
 		log.Println(result.Error)
 		io.Copy(ioutil.Discard, response.Body)
-		return
+		return nil, errors.New(result.Error)
 	}
 
 	// convert result to entity
-	ratings := make([]entity.Rating, 0, len(mv.Ratings))
-	for _, v := range mv.Ratings {
+	ratings := make([]entity.Rating, 0, len(result.Ratings))
+	for _, v := range result.Ratings {
 		rating := entity.Rating{
 			Source: v.Source,
 			Value:  v.Value,
@@ -175,31 +175,31 @@ func (h *HTTP) GetDetail(ctx context.Context, id string) (e entity.Movie, err er
 		ratings = append(ratings, rating)
 	}
 
-	e = entity.Movie{
-		Title:      mv.Title,
-		Year:       mv.Year,
-		Rated:      mv.Rated,
-		Released:   mv.Released,
-		Runtime:    mv.Runtime,
-		Genre:      mv.Genre,
-		Director:   mv.Director,
-		Writer:     mv.Writer,
-		Actors:     mv.Actors,
-		Plot:       mv.Plot,
-		Language:   mv.Language,
-		Country:    mv.Country,
-		Awards:     mv.Awards,
-		Poster:     mv.Poster,
+	e = &entity.Movie{
+		Title:      result.Title,
+		Year:       result.Year,
+		Rated:      result.Rated,
+		Released:   result.Released,
+		Runtime:    result.Runtime,
+		Genre:      result.Genre,
+		Director:   result.Director,
+		Writer:     result.Writer,
+		Actors:     result.Actors,
+		Plot:       result.Plot,
+		Language:   result.Language,
+		Country:    result.Country,
+		Awards:     result.Awards,
+		Poster:     result.Poster,
 		Ratings:    ratings,
-		Metascore:  mv.Metascore,
-		ImdbRating: mv.ImdbRating,
-		ImdbVotes:  mv.ImdbVotes,
-		ImdbID:     mv.ImdbID,
-		Type:       mv.Type,
-		DVD:        mv.DVD,
-		BoxOffice:  mv.BoxOffice,
-		Production: mv.Production,
-		Website:    mv.Website,
+		Metascore:  result.Metascore,
+		ImdbRating: result.ImdbRating,
+		ImdbVotes:  result.ImdbVotes,
+		ImdbID:     result.ImdbID,
+		Type:       result.Type,
+		DVD:        result.DVD,
+		BoxOffice:  result.BoxOffice,
+		Production: result.Production,
+		Website:    result.Website,
 	}
 
 	return e, nil

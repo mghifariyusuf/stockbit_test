@@ -33,7 +33,7 @@ func (rest *Rest) search(w http.ResponseWriter, r *http.Request, ps httprouter.P
 		page, err = strconv.Atoi(params.Get("pagination"))
 		if err != nil {
 			log.Println(err)
-			errorHandler(w, err)
+			errorHandler(w, err, http.StatusInternalServerError)
 			return
 		}
 	}
@@ -45,7 +45,7 @@ func (rest *Rest) search(w http.ResponseWriter, r *http.Request, ps httprouter.P
 	})
 	if err != nil {
 		log.Println(err)
-		errorHandler(w, err)
+		errorHandler(w, err, http.StatusInternalServerError)
 		return
 	}
 

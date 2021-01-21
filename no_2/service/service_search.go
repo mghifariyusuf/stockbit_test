@@ -15,7 +15,7 @@ type SearchRequest struct {
 }
 
 // Search ...
-func (s *service) Search(ctx context.Context, r *SearchRequest) (e []entity.Movie, err error) {
+func (s *service) Search(ctx context.Context, r *SearchRequest) (e []*entity.Movie, err error) {
 	// call repo search
 	results, err := s.omdbRepo.Search(ctx, r.SearchWord, r.Page)
 	if err != nil {
@@ -25,7 +25,7 @@ func (s *service) Search(ctx context.Context, r *SearchRequest) (e []entity.Movi
 
 	// get single detail movie in goroutine
 	var wg sync.WaitGroup
-	e = make([]entity.Movie, len(results))
+	e = make([]*entity.Movie, len(results))
 	for i, v := range results {
 		wg.Add(1)
 		go func(i int, v entity.Movie) {
