@@ -1,4 +1,4 @@
-package movie
+package omdb
 
 import (
 	"context"

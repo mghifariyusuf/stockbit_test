@@ -8,6 +8,5 @@ import (
 
 // Repository ...
 type Repository interface {
-	Search(ctx context.Context, searchWord string, page int) (e []entity.Movie, err error)
-	GetDetail(ctx context.Context, id string) (e entity.Movie, err error)
+	Upsert(ctx context.Context, e entity.Movie) (err error)
 }

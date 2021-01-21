@@ -14,8 +14,10 @@ import (
 )
 
 func TestGetDetail(t *testing.T) {
-	var id string = "abcd"
-	var entityMovie entity.Movie
+	var (
+		id          = "abcd"
+		entityMovie entity.Movie
+	)
 	testdata.GoldenJSONUnmarshal(t, "movie", &entityMovie)
 
 	tests := map[string]struct {
@@ -54,12 +56,12 @@ func TestGetDetail(t *testing.T) {
 
 	for testName, test := range tests {
 		t.Run(testName, func(t *testing.T) {
-			movieRepo := new(mockrepo.Repository)
+			omdbRepo := new(mockrepo.Repository)
 			serviceMock := New(
-				movieRepo,
+				omdbRepo,
 			)
 
-			movieRepo.On("GetDetail", test.movieDetail.Input...).
+			omdbRepo.On("GetDetail", test.movieDetail.Input...).
 				Return(test.movieDetail.Output...).
 				Once()
 

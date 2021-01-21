@@ -48,7 +48,16 @@ func responseHandler(w http.ResponseWriter, object interface{}) {
 
 // handler to return error
 func errorHandler(w http.ResponseWriter, err error) {
+	m := map[string]string{
+		"error": err.Error(),
+	}
+	jsonResp, err := json.Marshal(m)
+	if err != nil {
+		errorHandler(w, err)
+		return
+	}
+
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusInternalServerError)
-	w.Write([]byte(err.Error()))
+	w.Write([]byte(jsonResp))
 }

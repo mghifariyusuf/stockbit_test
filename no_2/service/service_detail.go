@@ -14,11 +14,18 @@ type GetDetailRequest struct {
 
 // GetDetail ...
 func (s *service) GetDetail(ctx context.Context, r *GetDetailRequest) (e entity.Movie, err error) {
-	// call repo
-	e, err = s.movieRepo.GetDetail(ctx, r.ID)
+	// get data from omdb
+	e, err = s.omdbRepo.GetDetail(ctx, r.ID)
 	if err != nil {
 		log.Println(err)
 		return e, err
+	}
+
+	// insert db
+	err = s.movieRepo.Upsert(ctx, e)
+	if err != nil {
+		log.Println(err)
+		return
 	}
 
 	return e, nil
